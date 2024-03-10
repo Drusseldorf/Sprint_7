@@ -63,7 +63,7 @@ class Courier:
         login, password = Generator.login_and_password()
 
         self.register_courier(login, password)
-        login_result = Courier.login_courier(login, password)
+        login_result = self.login_courier(login, password)
 
         if login_result.status_code == 200:
             return login_result.json()['id'], login, password
