@@ -12,7 +12,7 @@ class TestAuthorizationCourier:
 
     @classmethod
     def setup_class(cls):
-        cls.courier_id, cls.login, cls.password = Courier.register_and_login()
+        cls.courier_id, cls.login, cls.password = Courier().register_and_login()
 
     @allure.title('Тест возможности пройти авторизацию курьера')
     def test_authorization_is_possible(self):

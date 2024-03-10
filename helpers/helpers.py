@@ -1,3 +1,4 @@
+import allure
 import requests
 import random
 import string
@@ -25,6 +26,7 @@ class Generator:
 class Courier:
 
     @staticmethod
+    @allure.step('Выполняется запрос регистрации курьера')
     def register_courier(login=None, password=None, firstName=None):
 
         body = {}
@@ -41,6 +43,7 @@ class Courier:
         return response
 
     @staticmethod
+    @allure.step('Выполняется запрос авторизации курьера')
     def login_courier(login=None, password=None):
 
         body = {}
@@ -54,12 +57,12 @@ class Courier:
 
         return response
 
-    @staticmethod
-    def register_and_login():
+    @allure.step('Выполняется последовательно ренгистрация и авторизация курьера')
+    def register_and_login(self):
 
         login, password = Generator.login_and_password()
 
-        Courier.register_courier(login, password)
+        self.register_courier(login, password)
         login_result = Courier.login_courier(login, password)
 
         if login_result.status_code == 200:
@@ -68,6 +71,7 @@ class Courier:
             return False
 
     @staticmethod
+    @allure.step('Выполняется запрос удаления курьера')
     def delete_courier(courier_id):
         response = requests.delete(url=Url.DELETE_COURIER+str(courier_id))
         return response
@@ -76,6 +80,7 @@ class Courier:
 class Order:
 
     @staticmethod
+    @allure.step('Выполняется запрос создания создания заказа')
     def make_order(order_data):
 
         response = requests.post(url=Url.MAKE_ORDER, data=json.dumps(order_data))
@@ -83,6 +88,7 @@ class Order:
         return response
 
     @staticmethod
+    @allure.step('Выполняется запрос получения списка заказов')
     def get_orders():
 
         response = requests.get(url=Url.MAKE_ORDER)
